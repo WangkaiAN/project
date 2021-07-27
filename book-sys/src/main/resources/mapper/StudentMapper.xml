@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.StudentMapper">
+  <resultMap id="BaseResultMap" type="org.example.model.Student"
+             extends="org.example.mapper.DictionaryTagMapper.BaseResultMap">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="student_name" jdbcType="VARCHAR" property="studentName" />
+    <result column="student_no" jdbcType="VARCHAR" property="studentNo" />
+    <result column="id_card" jdbcType="VARCHAR" property="idCard" />
+    <result column="student_email" jdbcType="VARCHAR" property="studentEmail" />
+    <result column="classes_id" jdbcType="INTEGER" property="classesId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <association property="classes"
+                 columnPrefix="c_"
+                 resultMap="org.example.mapper.ClassesMapper.BaseResultMap"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, student_name, student_no, id_card, student_email, classes_id, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from student
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from student
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.example.model.Student" useGeneratedKeys="true">
+    insert into student (student_name, student_no, id_card, 
+      student_email, classes_id, create_time
+      )
+    values (#{studentName,jdbcType=VARCHAR}, #{studentNo,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, 
+      #{studentEmail,jdbcType=VARCHAR}, #{classesId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.example.model.Student" useGeneratedKeys="true">
+    insert into student
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="studentName != null">
+        student_name,
+      </if>
+      <if test="studentNo != null">
+        student_no,
+      </if>
+      <if test="idCard != null">
+        id_card,
+      </if>
+      <if test="studentEmail != null">
+        student_email,
+      </if>
+      <if test="classesId != null">
+        classes_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="studentName != null">
+        #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentNo != null">
+        #{studentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null">
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="studentEmail != null">
+        #{studentEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="classesId != null">
+        #{classesId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.example.model.Student">
+    update student
+    <set>
+      <if test="studentName != null">
+        student_name = #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentNo != null">
+        student_no = #{studentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null">
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="studentEmail != null">
+        student_email = #{studentEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="classesId != null">
+        classes_id = #{classesId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.example.model.Student">
+    update student
+    set student_name = #{studentName,jdbcType=VARCHAR},
+      student_no = #{studentNo,jdbcType=VARCHAR},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      student_email = #{studentEmail,jdbcType=VARCHAR},
+      classes_id = #{classesId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectOne" parameterType="org.example.model.Student" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from student
+    <where>
+      <if test="studentName != null">
+        and student_name = #{studentName,jdbcType=VARCHAR}
+      </if>
+      <if test="studentNo != null">
+        and student_no = #{studentNo,jdbcType=VARCHAR}
+      </if>
+      <if test="idCard != null">
+        and id_card = #{idCard,jdbcType=VARCHAR}
+      </if>
+      <if test="studentEmail != null">
+        and student_email = #{studentEmail,jdbcType=VARCHAR}
+      </if>
+      <if test="classesId != null">
+        and classes_id = #{classesId,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, student_name, student_no, id_card, student_email, classes_id, create_time
+    from student
+  </select>
+  <select id="selectByCondition" parameterType="org.example.model.Student" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from student
+    <where>
+      <if test="studentName != null">
+        and student_name = #{studentName,jdbcType=VARCHAR}
+      </if>
+      <if test="studentNo != null">
+        and student_no = #{studentNo,jdbcType=VARCHAR}
+      </if>
+      <if test="idCard != null">
+        and id_card = #{idCard,jdbcType=VARCHAR}
+      </if>
+      <if test="studentEmail != null">
+        and student_email = #{studentEmail,jdbcType=VARCHAR}
+      </if>
+      <if test="classesId != null">
+        and classes_id = #{classesId,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+  <delete id="deleteByIds" parameterType="java.util.List">
+    delete from student
+      where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=",">
+      #{item}
+    </foreach>
+  </delete>
+
+
+
+  <!--  自定义sql-->
+  <select id="queryAsDict" resultMap="BaseResultMap">
+        select
+            s.id dictionary_tag_key,
+            s.student_name dictionary_tag_value,
+            s.student_no,
+            s.id_card
+        from student s
+        join classes c on s.classes_id=c.id
+        where c.id=#{id}
+  </select>
+
+  <select id="query" resultMap="BaseResultMap">
+    select
+        s.*,
+        c.id c_id,
+        c.classes_name c_classes_name,
+        c.classes_graduate_year c_classes_graduate_year,
+        c.classes_major c_classes_major
+    from student s
+    join classes c on
+        c.id=s.classes_id
+    where
+        s.student_name like #{searchText}
+        order by s.create_time ${sortOrder}
+  </select>
+
+  <select id="queryById" resultMap="BaseResultMap">
+    select
+        s.*,
+        c.id c_id,
+        c.classes_name c_classes_name,
+        c.classes_graduate_year c_classes_graduate_year,
+        c.classes_major c_classes_major
+    from student s
+    join classes c on
+        c.id=s.classes_id
+    where
+        s.id=#{id}
+  </select>
+</mapper>

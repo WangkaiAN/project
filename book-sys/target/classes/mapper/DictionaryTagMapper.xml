@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.DictionaryTagMapper">
+  <resultMap id="BaseResultMap" type="org.example.model.DictionaryTag">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="dictionary_tag_key" jdbcType="VARCHAR" property="dictionaryTagKey" />
+    <result column="dictionary_tag_value" jdbcType="VARCHAR" property="dictionaryTagValue" />
+    <result column="dictionary_tag_desc" jdbcType="VARCHAR" property="dictionaryTagDesc" />
+    <result column="dictionary_id" jdbcType="INTEGER" property="dictionaryId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, dictionary_tag_key, dictionary_tag_value, dictionary_tag_desc, dictionary_id, 
+    create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dictionary_tag
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dictionary_tag
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.example.model.DictionaryTag" useGeneratedKeys="true">
+    insert into dictionary_tag (dictionary_tag_key, dictionary_tag_value, 
+      dictionary_tag_desc, dictionary_id, create_time
+      )
+    values (#{dictionaryTagKey,jdbcType=VARCHAR}, #{dictionaryTagValue,jdbcType=VARCHAR}, 
+      #{dictionaryTagDesc,jdbcType=VARCHAR}, #{dictionaryId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.example.model.DictionaryTag" useGeneratedKeys="true">
+    insert into dictionary_tag
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dictionaryTagKey != null">
+        dictionary_tag_key,
+      </if>
+      <if test="dictionaryTagValue != null">
+        dictionary_tag_value,
+      </if>
+      <if test="dictionaryTagDesc != null">
+        dictionary_tag_desc,
+      </if>
+      <if test="dictionaryId != null">
+        dictionary_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dictionaryTagKey != null">
+        #{dictionaryTagKey,jdbcType=VARCHAR},
+      </if>
+      <if test="dictionaryTagValue != null">
+        #{dictionaryTagValue,jdbcType=VARCHAR},
+      </if>
+      <if test="dictionaryTagDesc != null">
+        #{dictionaryTagDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="dictionaryId != null">
+        #{dictionaryId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.example.model.DictionaryTag">
+    update dictionary_tag
+    <set>
+      <if test="dictionaryTagKey != null">
+        dictionary_tag_key = #{dictionaryTagKey,jdbcType=VARCHAR},
+      </if>
+      <if test="dictionaryTagValue != null">
+        dictionary_tag_value = #{dictionaryTagValue,jdbcType=VARCHAR},
+      </if>
+      <if test="dictionaryTagDesc != null">
+        dictionary_tag_desc = #{dictionaryTagDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="dictionaryId != null">
+        dictionary_id = #{dictionaryId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.example.model.DictionaryTag">
+    update dictionary_tag
+    set dictionary_tag_key = #{dictionaryTagKey,jdbcType=VARCHAR},
+      dictionary_tag_value = #{dictionaryTagValue,jdbcType=VARCHAR},
+      dictionary_tag_desc = #{dictionaryTagDesc,jdbcType=VARCHAR},
+      dictionary_id = #{dictionaryId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectOne" parameterType="org.example.model.DictionaryTag" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dictionary_tag
+    <where>
+      <if test="dictionaryTagKey != null">
+        and dictionary_tag_key = #{dictionaryTagKey,jdbcType=VARCHAR}
+      </if>
+      <if test="dictionaryTagValue != null">
+        and dictionary_tag_value = #{dictionaryTagValue,jdbcType=VARCHAR}
+      </if>
+      <if test="dictionaryTagDesc != null">
+        and dictionary_tag_desc = #{dictionaryTagDesc,jdbcType=VARCHAR}
+      </if>
+      <if test="dictionaryId != null">
+        and dictionary_id = #{dictionaryId,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, dictionary_tag_key, dictionary_tag_value, dictionary_tag_desc, dictionary_id, 
+    create_time
+    from dictionary_tag
+  </select>
+  <select id="selectByCondition" parameterType="org.example.model.DictionaryTag" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dictionary_tag
+    <where>
+      <if test="dictionaryTagKey != null">
+        and dictionary_tag_key = #{dictionaryTagKey,jdbcType=VARCHAR}
+      </if>
+      <if test="dictionaryTagValue != null">
+        and dictionary_tag_value = #{dictionaryTagValue,jdbcType=VARCHAR}
+      </if>
+      <if test="dictionaryTagDesc != null">
+        and dictionary_tag_desc = #{dictionaryTagDesc,jdbcType=VARCHAR}
+      </if>
+      <if test="dictionaryId != null">
+        and dictionary_id = #{dictionaryId,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+  <delete id="deleteByIds" parameterType="java.util.List">
+    delete from dictionary_tag
+      where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=",">
+      #{item}
+    </foreach>
+  </delete>
+
+
+<!--  自定义sql-->
+  <select id="query" resultMap="BaseResultMap">
+    select
+    concat(d.dictionary_key,dt.dictionary_tag_key) dictionary_tag_key,
+    dt.dictionary_tag_value
+    from dictionary_tag dt join dictionary d
+    on d.id=dt.dictionary_id
+    where d.dictionary_key=#{key}
+  </select>
+</mapper>
